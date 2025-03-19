@@ -33,8 +33,17 @@ export class ContactEffects {
         )
     ))
 
+    launchAddDialog$ = createEffect(()=> this.actions$.pipe(
+        ofType(actions.addContactClicked),
+        switchMap( action =>
+            this.contactService.addContactDialog$().pipe(
+                map(contact => contact ? actions.addContactConfrimed({contact}) : actions.addContactCancelled()) 
+            )
+        )
+    ))
+    
     saveContact$ = createEffect(()=> this.actions$.pipe(
-        ofType(actions.editContactConfrimed),
+        ofType(actions.editContactConfrimed, actions.addContactConfrimed),
         concatMap(action =>
             this.contactService.saveContact$(action.contact).pipe(
                 map(contact => actions.contactSavedSuccess({contact}))

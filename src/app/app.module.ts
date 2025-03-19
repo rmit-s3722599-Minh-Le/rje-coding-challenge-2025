@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 import { ContactEditDialogComponent } from './dialogs/contact-edit-dialog/contact-edit-dialog.component';
+import { ContactAddDialogComponent } from './dialogs/contact-add-dialog/contact-add-dialog.component';
 import { PickRoleDialogComponent } from './dialogs/pick-role-dialog/pick-role-dialog.component';
 import { StoreModule } from '@ngrx/store';
 
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactListComponent,
     ContactDetailComponent,
     ContactEditDialogComponent,
-    PickRoleDialogComponent
+    PickRoleDialogComponent,
+    ContactAddDialogComponent
   ],
   imports: [
     BrowserModule,
