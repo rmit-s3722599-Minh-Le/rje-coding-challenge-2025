@@ -1,45 +1,34 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Contact } from 'src/app/models/contact.model';
 import { State, selectContactList } from 'src/app/state';
+import { ContactEditDialogComponent } from '../contact-edit-dialog/contact-edit-dialog.component';
 
 @Component({
   selector: 'app-contact-add-dialog',
   templateUrl: './contact-add-dialog.component.html',
-  styleUrls: ['./contact-add-dialog.component.css']
+  styleUrls: ['../contact-edit-dialog/contact-edit-dialog.component.css'] //
 })
 
 
-
-export class ContactAddDialogComponent {
+export class ContactAddDialogComponent extends ContactEditDialogComponent {
   
   contactList$: Observable<Contact[]>;
 
   constructor(
-    public dialogRef: MatDialogRef<{contact: Contact}>,
-    @Inject(MAT_DIALOG_DATA) public data: {
+    dialogRef: MatDialogRef<{contact: Contact}>,
+    @Inject(MAT_DIALOG_DATA) data: {
       contact : Contact | null
     },
     private store : Store<State>,
-    private changeDetection: ChangeDetectorRef
   ){
+    super(dialogRef, data)
     this.contactList$ = this.store.select(selectContactList)
   }
 
-  contactForm: FormGroup = new FormGroup({
-    firstName : new FormControl(),
-    lastName : new FormControl(),
-    phoneNumber : new FormControl(),
-    email : new FormControl()
-  })
-
-  ngOnInit(){
-  }
-
-  onSaveClick() : void {
+  override onSaveClick() : void {
     let newContact = this.contactForm.value
     
     this.contactList$.subscribe(array=>{ 
@@ -52,8 +41,5 @@ export class ContactAddDialogComponent {
     })
   }
 
-  onCancelClick() : void {
-    this.dialogRef.close();
-  }
 
 }
