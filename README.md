@@ -29,4 +29,28 @@ In our main code base, you would expect to find this architecture replicated wit
 1. //Optionally provide any notes relating to question 1 here.
 2. //Optionally provide any notes relating to question 2 here.
 3. //Provide your answer to question 3 here.
+
+I would use catchError to handle a service function throwing an error in the service. 
+
+You can handle the thrown service function error, for example, in retrieveContactList$ you can add catchError to the pipe with retry like so...
+
+```
+.pipe(
+    retry(3),
+      catchError(
+        e => {
+            console.log('Error', e) 
+            return of ([])}
+      ), ...
+```
+
+which the observable is replaced with an empty array. The retry also allows the service to be called multiple times each time an error happens. You can also add count and delay to retry for example:
+```
+retry({
+    count: 3,
+    delay: (error, retryCount) => {...}
+})
+```
+
+
 4. //Provide your link or location of your file within the repo here.

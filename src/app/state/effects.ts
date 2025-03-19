@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {concatMap, map, of, switchMap} from 'rxjs';
+import {concatMap, map, of, switchMap, retry} from 'rxjs';
 import {Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { State } from './';
@@ -20,8 +20,8 @@ export class ContactEffects {
         concatMap(() => 
             this.contactService.getContactList$().pipe(
                 map(contactList => actions.contactListReturned({contactList}))
-            )
-        )
+            ),
+        ),
     ))
 
     launchEditDialog$ = createEffect(()=> this.actions$.pipe(
@@ -35,13 +35,13 @@ export class ContactEffects {
 
     launchAddDialog$ = createEffect(()=> this.actions$.pipe(
         ofType(actions.addContactClicked),
-        switchMap( action =>
+        switchMap( () =>
             this.contactService.addContactDialog$().pipe(
                 map(contact => contact ? actions.addContactConfrimed({contact}) : actions.addContactCancelled()) 
             )
         )
     ))
-    
+
     saveContact$ = createEffect(()=> this.actions$.pipe(
         ofType(actions.editContactConfrimed, actions.addContactConfrimed),
         concatMap(action =>

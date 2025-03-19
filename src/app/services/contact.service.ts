@@ -83,10 +83,10 @@ export class ContactService {
 
 
   }
+  
   addContactDialog$() : Observable<Contact> {
 
-    const dialogRef = this.dialog.open(ContactAddDialogComponent, {
-    })
+    const dialogRef = this.dialog.open(ContactAddDialogComponent)
 
     return dialogRef.afterClosed();
 
