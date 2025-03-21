@@ -43,6 +43,6 @@ export const addContactCancelled = createAction(
 );
 
 export const addContactConfrimed = createAction(
-    '[CONTACT MODAL] Add Contact Confirmed (Save Clicked)',
+    '[CONTACT MODAL] Add Contact Confirmed (Add Clicked)',
     props<{contact: Contact}>()
 );

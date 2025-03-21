@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {concatMap, map, of, switchMap, retry} from 'rxjs';
+import {concatMap, map, of, switchMap} from 'rxjs';
 import {Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { State } from './';
