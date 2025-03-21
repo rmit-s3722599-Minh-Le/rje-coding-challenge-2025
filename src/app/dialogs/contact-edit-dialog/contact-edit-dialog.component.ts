@@ -28,7 +28,7 @@ export class ContactEditDialogComponent {
   })
 
   ngOnInit(){
-    if(this.data.contact){
+    if(this.data?.contact){
       this.contactForm.patchValue(this.data.contact)
       console.log(this.contactForm.value)
     }
